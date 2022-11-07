@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../assets/argentBankLogo.png";
 import { FaUserCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Header = () => {
 	return (
@@ -10,7 +11,9 @@ const Header = () => {
 			</div>
 			<div className="flex items-center gap-5">
 				<FaUserCircle />
-				<span className="cursor-pointer	hover:underline">Sign In</span>
+				<Link to="/login" className="cursor-pointer	hover:underline">
+					Sign In
+				</Link>
 			</div>
 		</div>
 	);
