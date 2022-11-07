@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../Project-10-Bank-API"
+		},
+		{
+			"path": "../../../.."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Project-10-Bank-API"
+	}
+}
