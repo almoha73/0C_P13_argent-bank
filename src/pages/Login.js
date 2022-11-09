@@ -1,42 +1,49 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
+
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login, reset } from "../redux/features/auth/authSlice";
+import { loginUser, reset } from "../redux/features/auth/authSlice";
 import Loader from "../components/Loader";
 
 export default function Login() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const auth = useSelector((state) => state.auth);
-	const isLoading = useSelector((state) => state.auth);
-	const isError = useSelector((state) => state.auth);
+	const userLoaded = useSelector((state) => state.auth);
+	const loginError = useSelector((state) => state.auth);
 	const message = useSelector((state) => state.auth);
-	const isSuccess = useSelector((state) => state.auth);
-	const [mail, setMail] = useState("");
-	const [password, setPassword] = useState("");
+	const loginStatus = useSelector((state) => state.auth);
+	
+	const [user, setUser] = useState({
+		email: "",
+		password: "",
+	  });
 
 	useEffect(() => {
-		if (isError) {
+		if (loginError) {
 			console.log(message);
 		}
 
-		if (isSuccess || auth) {
+		
+
+		if (userLoaded || auth) {
 			navigate("/profil");
 		}
 
 		dispatch(reset());
-	}, [auth, isError, isSuccess, message, navigate, dispatch]);
+	}, [auth, loginError, userLoaded, message, navigate, dispatch]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(mail, password);
+		e.preventDefault();
 
-		dispatch(login({ mail, password }));
+    console.log(user);
+    dispatch(loginUser(user));
 	};
 
-	if (isLoading) {
+	if (loginStatus) {
 		return <Loader />;
 	}
 
@@ -50,10 +57,10 @@ export default function Login() {
 						<label htmlFor="username font-bold">Username</label>
 						<input
 							type="text"
-							value={mail}
-							onChange={(e) => setMail(e.target.value)}
+							
+							onChange={(e) => setUser({ ...user, email: e.target.value })}
 							id="username"
-							placeholder="Name"
+							placeholder="email"
 							className="border-2 p-1 border-black"
 						/>
 					</div>
@@ -61,9 +68,9 @@ export default function Login() {
 						<label htmlFor="username">Password</label>
 						<input
 							type="text"
-							value={password}
+							
 							id="password"
-							onChange={(e) => setPassword(e.target.value)}
+							onChange={(e) => setUser({ ...user, password: e.target.value })}
 							placeholder="Enter password"
 							className="border-2 p-1 border-black"
 						/>

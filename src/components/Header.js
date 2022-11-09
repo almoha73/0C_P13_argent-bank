@@ -3,7 +3,7 @@ import logo from "../assets/argentBankLogo.png";
 import { FaUserCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout, reset } from "../redux/features/auth/authSlice";
+import { logoutUser, reset } from "../redux/features/auth/authSlice";
 
 const Header = () => {
 	const navigate = useNavigate()
@@ -11,7 +11,7 @@ const Header = () => {
 
   
 	const onLogout = () => {
-	  dispatch(logout())
+	  dispatch(logoutUser())
 	  dispatch(reset())
 	  navigate('/')
 	}

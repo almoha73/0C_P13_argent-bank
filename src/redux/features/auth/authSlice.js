@@ -1,22 +1,30 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import authService from "./authService";
+import axios from "axios";
+import jwtDecode from "jwt-decode";
+import { url} from "./api";
 
 
 const initialState = {
-	user: localStorage.getItem("user") ? localStorage.getItem("user") : "",
-	isError: false,
-	isSuccess: false,
-	isLoading: false,
+	token: localStorage.getItem("user") ? localStorage.getItem("user") : "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+	loginError: "",
+	loginStatus:"",
+	userLoaded: false,
 	message: "",
 };
 
 
 // Login user
-export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
+export const loginUser = createAsyncThunk('auth/loginUser', async (values, {rejectWithValue}) => {
     try {
-      const data = await authService.login(user);
-      console.log(data);
-      return data
+      const token = await axios.post(`${url}/login`, {
+        email: values.email,
+        password: values.password
+      })
+      localStorage.setItem("token", token.data);
 
     } catch (error) {
       const message =
@@ -24,13 +32,11 @@ export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
         error.message ||
         error.toString()
         
-      return thunkAPI.rejectWithValue(message)
+      return rejectWithValue(message)
     }
   })
   
-  export const logout = createAsyncThunk('auth/logout', async () => {
-    await authService.logout()
-  })
+  
 
 
 const authSlice = createSlice({
@@ -39,33 +45,71 @@ const authSlice = createSlice({
   reducers: {
     reset: (state) => {
       state.isLoading = false
-      state.isSuccess = false
-      state.isError = false
+      state.isSuccess = ""
+      state.isError = ""
       state.message = ''
     },
-  },
-  extraReducers: (builder) => {
-    builder
+    loadUser(state, action) {
+        const token = state.token;
+  
+        if (token) {
+          const user = jwtDecode(token);
+          return {
+            ...state,
+            token,
+            name: user.name,
+            email: user.email,
+            userLoaded: true,
+          };
+        } else return { ...state, userLoaded: true };
+      },
+      logoutUser(state, action) {
+        localStorage.removeItem("token");
+  
+        return {
+          ...state,
+          token: "",
+          name: "",
+          email: "",
+        
+          registerStatus: "",
+          registerError: "",
+          loginStatus: "",
+          loginError: "",
+        };
+      },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(loginUser.pending, (state, action) => {
+            return { ...state, loginStatus: "pending" };
+          });
+          builder.addCase(loginUser.fulfilled, (state, action) => {
+            if (action.payload) {
+              const user = jwtDecode(action.payload);
+              return {
+                ...state,
+                token: action.payload,
+                name: user.name,
+                email: user.email,
+                _id: user._id,
+                loginStatus: "success",
+              };
+            } else return state;
+          });
+          builder.addCase(loginUser.rejected, (state, action) => {
+            return {
+              ...state,
+              loginStatus: "rejected",
+              loginError: action.payload,
+            };
+          });  
       
-      .addCase(login.pending, (state) => {
-        state.isLoading = true
-      })
-      .addCase(login.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.isSuccess = true
-        state.user= action?.payload
-      })
-      .addCase(login.rejected, (state, action) => {
-        state.isLoading = false
-        state.isError = true
-        state.message = action.payload
-        state.user = null
-      })
-      .addCase(logout.fulfilled, (state) => {
-        state.user = null
-      })
+      },
   },
-});
+  
+);
 
-export const { reset } = authSlice.actions
+
+export const { loadUser, logoutUser, reset } = authSlice.actions;
+
 export default authSlice.reducer;
