@@ -15,11 +15,11 @@ export default function Login() {
 	const loginError = useSelector((state) => state.auth);
 	const message = useSelector((state) => state.auth);
 	const loginStatus = useSelector((state) => state.auth);
-	
+
 	const [user, setUser] = useState({
 		email: "",
 		password: "",
-	  });
+	});
 
 	useEffect(() => {
 		if (loginError) {
@@ -35,8 +35,8 @@ export default function Login() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-    console.log(user);
-    dispatch(loginUser(user));
+		console.log(user);
+		dispatch(loginUser(user));
 	};
 
 	if (loginStatus === "pending") {
@@ -53,7 +53,6 @@ export default function Login() {
 						<label htmlFor="username font-bold">Username</label>
 						<input
 							type="text"
-							
 							onChange={(e) => setUser({ ...user, email: e.target.value })}
 							id="username"
 							placeholder="email"
@@ -64,7 +63,6 @@ export default function Login() {
 						<label htmlFor="username">Password</label>
 						<input
 							type="text"
-							
 							id="password"
 							onChange={(e) => setUser({ ...user, password: e.target.value })}
 							placeholder="Enter password"
@@ -75,7 +73,9 @@ export default function Login() {
 						<input type="checkbox" id="remember-me" className="mr-2" />
 						<label htmlFor="remember-me">Remember me</label>
 					</div>
-					<button className="w-full bg-[#00BC77] p-2 text-white text-xl underline">Login</button>
+					<button className="w-full bg-[#00BC77] p-2 text-white text-xl underline">
+						Login
+					</button>
 				</form>
 			</section>
 		</main>
