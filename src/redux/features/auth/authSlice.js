@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import jwtDecode from "jwt-decode";
 import { url} from "./api";
 
 
@@ -54,7 +53,7 @@ const authSlice = createSlice({
         const token = state.token;
   
         if (token) {
-          const user = jwtDecode(token);
+          const user = token.payload;
           return {
             ...state,
             token,
@@ -86,7 +85,7 @@ const authSlice = createSlice({
           });
           builder.addCase(loginUser.fulfilled, (state, action) => {
             if (action.payload) {
-              const user = jwtDecode(action.payload);
+              const user = action.payload;
               return {
                 ...state,
                 token: action.payload,
