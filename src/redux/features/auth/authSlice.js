@@ -12,14 +12,17 @@ const initialState = {
 
 
 // Login user
-export const login = createAsyncThunk('auth/login', async (user, thunkAPI) => {
+export const login = createAsyncThunk('auth/login', async ({ email, password }, thunkAPI) => {
     try {
-      return await authService.login(user)
+      const data = authService.login(email, password);
+      return {user: data}
+
     } catch (error) {
       const message =
         (error.response && error.response.data && error.response.data.message) ||
         error.message ||
         error.toString()
+        
       return thunkAPI.rejectWithValue(message)
     }
   })
