@@ -44,9 +44,9 @@ const authSlice = createSlice({
 	initialState,
 	reducers: {
 		reset: (state) => {
-			state.isLoading = false;
-			state.isSuccess = "";
-			state.isError = "";
+			state.loginStatus = false;
+			state.userLoaded = "";
+			state.loginError = "";
 			state.message = "";
 		},
 		loadUser(state, action) {
@@ -71,9 +71,6 @@ const authSlice = createSlice({
 				token: "",
 				password: "",
 				email: "",
-
-				registerStatus: "",
-				registerError: "",
 				loginStatus: "",
 				loginError: "",
 			};
