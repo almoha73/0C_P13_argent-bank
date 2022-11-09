@@ -5,7 +5,7 @@ import { url} from "./api";
 
 
 const initialState = {
-	token: localStorage.getItem("user") ? localStorage.getItem("user") : "",
+	token: localStorage.getItem("token") ? localStorage.getItem("token") : "",
     firstname: "",
     lastname: "",
     email: "",
@@ -25,6 +25,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (values, {reje
         password: values.password
       })
       localStorage.setItem("token", token.data);
+      console.log(token.data);
       return token.data;
     } catch (error) {
       const message =
