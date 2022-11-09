@@ -25,7 +25,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (values, {reje
         password: values.password
       })
       localStorage.setItem("token", token.data);
-
+      return token.data;
     } catch (error) {
       const message =
         (error.response && error.response.data && error.response.data.message) ||
@@ -91,7 +91,6 @@ const authSlice = createSlice({
                 token: action.payload,
                 password: user.password,
                 email: user.email,
-                
                 loginStatus: "success",
               };
             } else return state;

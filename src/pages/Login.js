@@ -26,8 +26,6 @@ export default function Login() {
 			console.log(message);
 		}
 
-		
-
 		if (userLoaded || auth) {
 			navigate("/profil");
 		}
@@ -37,13 +35,11 @@ export default function Login() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		e.preventDefault();
-
     console.log(user);
     dispatch(loginUser(user));
 	};
 
-	if (loginStatus) {
+	if (loginStatus === "pending") {
 		return <Loader />;
 	}
 
