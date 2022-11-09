@@ -57,7 +57,7 @@ const authSlice = createSlice({
           return {
             ...state,
             token,
-            name: user.name,
+            password: user.password,
             email: user.email,
             userLoaded: true,
           };
@@ -69,7 +69,7 @@ const authSlice = createSlice({
         return {
           ...state,
           token: "",
-          name: "",
+          password: "",
           email: "",
         
           registerStatus: "",
@@ -89,9 +89,9 @@ const authSlice = createSlice({
               return {
                 ...state,
                 token: action.payload,
-                name: user.name,
+                password: user.password,
                 email: user.email,
-                _id: user._id,
+                
                 loginStatus: "success",
               };
             } else return state;
