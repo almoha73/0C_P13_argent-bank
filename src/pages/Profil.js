@@ -1,7 +1,13 @@
-import React from 'react'
+import React from "react";
+import { useDispatch } from "react-redux";
+import { signOut } from "../redux/features/auth/authThunks";
 
 export default function Profil() {
-  return (
-    <div>Profil</div>
-  )
+	const dispatch = useDispatch();
+	return (
+		<>
+			<h1>Profil</h1>
+			<button onClick={() => dispatch(signOut())}> Log Out</button>
+		</>
+	);
 }
