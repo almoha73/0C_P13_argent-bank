@@ -16,8 +16,6 @@ const Header = () => {
 					<Link to="/login" className="cursor-pointer	hover:underline">
 						Sign In
 					</Link>
-
-					{/* <Link className="cursor-pointer	hover:underline">Log Out</Link> */}
 				</div>
 			</ul>
 		</div>
