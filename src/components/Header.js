@@ -22,14 +22,14 @@ const Header = () => {
 						<div className="flex items-center gap-5">
 							<FaUserCircle />
 							<span>{firstName}</span>
+							<Link
+								to="/"
+								onClick={logout}
+								className="cursor-pointer	hover:underline"
+							>
+								Sign Out
+							</Link>
 						</div>
-						<Link
-							to="/"
-							onClick={logout}
-							className="cursor-pointer	hover:underline"
-						>
-							Sign Out
-						</Link>
 					</>
 				) : (
 					<div className="flex items-center gap-5">
