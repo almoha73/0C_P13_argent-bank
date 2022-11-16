@@ -7,51 +7,70 @@ import { login } from "../redux/features/auth/authThunks";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 export default function Login() {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const { loading, token } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
-	const { token, loading } = useSelector((state) => state.auth);
-
 	const navigate = useNavigate();
-	const handleLogin = (e) => {
-		e.preventDefault();
-		if (getToken()) {
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+	} = useForm();
+
+	const onSubmit = (data) => dispatch(login(data));
+	useEffect(() => {
+		if (token) {
 			navigate("/profile");
 		}
-		dispatch(login({ email, password }));
-	};
-
+	}, [token, navigate]);
 	return (
 		<>
 			<Header />
 			<main className="bg-[#12002B] w-full h-screen flex justify-center">
-				<section className="m-12 p-8 w-[300px] h-[360px] bg-white mt-10 flex flex-col justify-center">
+				<section className="mt-28 m-12 p-8 w-[300px] h-[360px] bg-white mt-10 flex flex-col justify-center">
 					<FaUserCircle className="w-5 h-5 mx-auto" />
 					<h1 className="text-center my-5">Sign In</h1>
-					<form onSubmit={handleLogin}>
+
+					<form onSubmit={handleSubmit(onSubmit)}>
 						<div className="input-wrapper mb-4">
 							<label htmlFor="username font-bold">Username</label>
 							<input
-								onChange={(e) => setEmail(e.target.value)}
-								placeholder="Email"
+								name="email"
 								type="email"
-								value={email}
+								placeholder="Email"
+								{...register("email", {
+									required: "Email Address is required",
+									pattern: {
+										value: /^\S+@\S+$/i,
+										message: "I think I said _valid_, didn't I?",
+									},
+								})}
 								id="username"
 								className="border-2 p-1 border-black"
 							/>
+							<p className="text-red-600 leading-3 text-xs">
+								{errors.email?.message}
+							</p>
 						</div>
+
 						<div className="input-wrapper mb-4">
 							<label htmlFor="username">Password</label>
 							<input
 								id="password"
-								onChange={(e) => setPassword(e.target.value)}
 								placeholder="Password"
+								name="password"
 								type="password"
-								value={password}
 								className="border-2 p-1 border-black"
+								{...register("password", {
+									required: "Password is required",
+								})}
 							/>
+							<p className="text-red-600 leading-3 text-xs">
+								{errors.password?.message}
+							</p>
 						</div>
 						<div className="input-wrapper mb-4">
 							<input type="checkbox" id="remember-me" className="mr-2" />
