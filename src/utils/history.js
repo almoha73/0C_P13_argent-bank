@@ -1,5 +1,4 @@
-import { createBrowserHistory } from "@remix-run/router"
+// import { createBrowserHistory } from "@remix-run/router"
 
-
-const history = createBrowserHistory ? createBrowserHistory() : []
-export default history
+// const history = createBrowserHistory ? createBrowserHistory() : []
+// export default history

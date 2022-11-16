@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { getToken, setToken } from "../utils/Helperunctions";
+import { getToken } from "../utils/Helperunctions";
 import { login } from "../redux/features/auth/authThunks";
-import history from "../utils/history";
+//import history from "../utils/history";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -17,13 +17,10 @@ export default function Login() {
 	const navigate = useNavigate();
 	const handleLogin = (e) => {
 		e.preventDefault();
-		dispatch(login({ email, password }));
-
-		if (token || getToken()) {
-			history.push("/login");
-			setToken();
-			navigate("/profil");
+		if (getToken()) {
+			navigate("/profile");
 		}
+		dispatch(login({ email, password }));
 	};
 
 	return (
