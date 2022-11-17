@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { getToken } from "../utils/Helperunctions";
+import { setToken } from "../utils/Helperunctions";
 import { login } from "../redux/features/auth/authThunks";
 //import history from "../utils/history";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,8 @@ import { useEffect } from "react";
 
 export default function Login() {
 	const { loading, token } = useSelector((state) => state.auth);
+	const auth = useSelector((state) => state.auth)
+	console.log(auth);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const {
@@ -23,6 +25,7 @@ export default function Login() {
 	const onSubmit = (data) => dispatch(login(data));
 	useEffect(() => {
 		if (token) {
+			setToken(token);
 			navigate("/profile");
 		}
 	}, [token, navigate]);
