@@ -27,7 +27,7 @@ const Header = () => {
 								onClick={logout}
 								className="cursor-pointer flex items-center gap-2 hover:underline"
 							>
-								<FaSignOutAlt /> Sign Out
+								<FaSignOutAlt /> <span className="hidden sm:block">Sign Out</span> 
 							</Link>
 						</div>
 					</>

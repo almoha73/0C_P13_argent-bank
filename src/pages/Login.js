@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaUserCircle } from "react-icons/fa";
+import  {FaUserCircle}  from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { setToken } from "../utils/Helperunctions";
 import { login } from "../redux/features/auth/authThunks";
@@ -33,7 +33,7 @@ export default function Login() {
 		<div className="flex flex-col">
 			<Header />
 			<main className="mt-16 bg-[#12002B] w-full h-screen flex justify-center">
-				<section className="mt-28 m-12 p-8 w-[300px] h-[360px] bg-white mt-10 flex flex-col justify-center">
+				<section className="mt-28 m-12 p-8 w-[300px] h-[360px] bg-white  flex flex-col justify-center">
 					<FaUserCircle className="w-5 h-5 mx-auto" />
 					<h1 className="text-center my-5">Sign In</h1>
 
