@@ -51,9 +51,9 @@ const authSlice = createSlice({
 		},
 		loadUser(state, action) {
 			const token = state.token;
-
+      
 			if (token) {
-				const user = token.payload;
+				const user = token
 				return {
 					...state,
 					token,
