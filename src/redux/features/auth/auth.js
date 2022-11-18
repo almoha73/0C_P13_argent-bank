@@ -35,8 +35,8 @@ export const authSlice = createSlice({
 			})
 			.addCase(fetchUserData?.fulfilled, (state, action) => {
 				state.token = action.payload.token;
-				state.firstName = action.payload.body.firstName;
-				state.lastName = action.payload.body.lastName;
+				state.firstName = action.payload.firstName;
+				state.lastName = action.payload.lastName;
 				state.loading = false;
 			})
 			.addCase(fetchUserData?.rejected, (state, action) => {
@@ -46,6 +46,6 @@ export const authSlice = createSlice({
 	},
 });
 
-export const {} = authSlice.actions;
+export const {actions} = authSlice;
 
 export default authSlice.reducer;

@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Card from "../components/Card";
 import { v4 as uuidv4 } from 'uuid';
+import { fetchUserData } from "../redux/features/auth/authThunks";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const argentBank = [
   {
@@ -24,6 +27,13 @@ const argentBank = [
 ]
 
 export default function Profil() {
+  const authToken = useSelector((state)=> state.auth.token)
+  const dispatch = useDispatch()
+  useEffect(()=> {
+   if(authToken){
+    dispatch(fetchUserData())
+   }
+  }, [dispatch, authToken])
   
   return (
     <div className="flex flex-col w-full h-auto bg-[#12002B]">
