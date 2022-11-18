@@ -28,6 +28,8 @@ const argentBank = [
 
 export default function Profil() {
   const authToken = useSelector((state)=> state.auth.token)
+  const firstName = useSelector((state)=> state.auth.firstName)
+  const lastName = useSelector((state)=> state.auth.lastName)
   const dispatch = useDispatch()
   useEffect(()=> {
    if(authToken){
@@ -42,7 +44,7 @@ export default function Profil() {
       <main className="mt-24 mb-12 w-full h-auto  flex justify-start items-center flex-col">
         <div className="flex flex-col items-center mb-4">
           <h1 className="text-3xl text-center text-white font-bold">
-            Welcome back <br></br> Tony Jarvis{" "}
+            Welcome back <br></br> {firstName} {lastName}
           </h1>
           <button className="bg-[#00BC77] p-2 w-20	text-white text-xs mt-4 ">
             Edit Name

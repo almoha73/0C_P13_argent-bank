@@ -23,8 +23,8 @@ export const authSlice = createSlice({
 			.addCase(login.pending, (state, action) => {
 				state.loading = true;
 			})
-			.addCase(login.fulfilled, (state, action) => {
-				state.token = action.payload.body.token;
+			.addCase(login?.fulfilled, (state, action) => {
+				state.token = action?.payload?.token;
 				state.loading = false;
 			})
 			.addCase(login.rejected, (state, action) => {
@@ -34,7 +34,7 @@ export const authSlice = createSlice({
 				state.loading = true;
 			})
 			.addCase(fetchUserData?.fulfilled, (state, action) => {
-				state.token = action.payload.token;
+				state.token = action.payload?.authToken;
 				state.firstName = action.payload.firstName;
 				state.lastName = action.payload.lastName;
 				state.loading = false;

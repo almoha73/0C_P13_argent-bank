@@ -13,8 +13,8 @@ export const fetchUserData = createAsyncThunk(
         },
       };
       const response = await api.post("/profile", {}, config);
-      console.log(response.data.body);
-      return response.data.body;
+      console.log({...response?.data.body, authToken});
+      return {...response?.data.body, authToken};
     } catch (error) {
       const message =
         (error.response &&
@@ -29,9 +29,9 @@ export const fetchUserData = createAsyncThunk(
 
 export const login = createAsyncThunk("auth/login", async (payload) => {
   const response = await api.post("/login", payload);
-  console.log(response.data);
-  setToken(response.data.body.token);
-  return response.data;
+  console.log(response.data.body);
+  setToken(response.data.body?.token);
+  return response.data?.body;
 });
 
 
