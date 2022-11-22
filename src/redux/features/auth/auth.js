@@ -35,8 +35,8 @@ export const authSlice = createSlice({
 			})
 			.addCase(fetchUserData?.fulfilled, (state, action) => {
 				state.token = action.payload?.authToken;
-				state.firstName = action.payload.firstName;
-				state.lastName = action.payload.lastName;
+				state.firstName = action.payload?.firstName;
+				state.lastName = action.payload?.lastName;
 				state.loading = false;
 			})
 			.addCase(fetchUserData?.rejected, (state, action) => {

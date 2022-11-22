@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Loader from "../pages/Loader";
+
 import { Navigate, Outlet } from "react-router";
 
 const PrivateRoute = (props) => {

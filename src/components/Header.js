@@ -7,7 +7,7 @@ import { signOut } from "../redux/features/auth/authThunks";
 
 const Header = () => {
 	const dispatch = useDispatch();
-	const { token, firstName } = useSelector((state) => state.auth);
+	const { token, firstName } = useSelector((state) => state?.auth);
 	const logout = () => {
 		dispatch(signOut());
 	};
