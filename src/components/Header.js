@@ -3,7 +3,7 @@ import logo from "../assets/argentBankLogo.png";
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "../redux/features/auth/authThunks";
+import { signOut } from "../redux/features/auth/auth";
 
 const Header = () => {
 	const dispatch = useDispatch();
