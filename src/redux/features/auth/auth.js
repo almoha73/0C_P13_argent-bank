@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { removeToken } from "../../../utils/Helperunctions";
-import { fetchUserData, login, updateUserData } from "./authThunks";
+
+import { fetchUserData, login, updateUserData, signOut} from "./authThunks";
 
 const initialState = {
   token: null,
@@ -13,19 +13,16 @@ const initialState = {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    signOut: (state, action) => {
-	 removeToken()
-      state.loading = false;
-      state.firstName = "";
-      state.lastName = "";
-      state.token = null;
-      state.error = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-
+		.addCase(signOut.fulfilled, (state, action) => {
+			state.loading = false;
+			state.firstName = "";
+			state.lastName = "";
+			state.token = null;
+			state.error = null;
+		})
       .addCase(login.pending, (state, action) => {
         state.loading = true;
 		state.error = null;
@@ -72,6 +69,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { actions, signOut } = authSlice;
+export const { actions} = authSlice;
 
 export default authSlice.reducer;

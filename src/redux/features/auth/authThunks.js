@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getToken, setToken } from "../../../utils/Helperunctions";
+import { getToken, setToken, removeToken } from "../../../utils/Helperunctions";
 import api from "../../../services/api";
 
 export const fetchUserData = createAsyncThunk(
   "auth/fetchUserData",
-  async (_, { rejectWithValue }) => {
+  async (userUpdateData, { rejectWithValue }) => {
     try {
       const authToken = getToken()
       const config = {
@@ -12,7 +12,7 @@ export const fetchUserData = createAsyncThunk(
           'Authorization': `Bearer ${authToken}`,
         },
       };
-      const response = await api.post("/profile", {}, config);
+      const response = await api.post("/profile", userUpdateData, config);
       console.log({...response?.data.body, authToken});
       return {...response?.data.body, authToken};
     } catch (error) {
@@ -29,7 +29,7 @@ export const fetchUserData = createAsyncThunk(
 
 export const updateUserData = createAsyncThunk(
   "auth/updateUserData",
-  async (userUpdateData, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const authToken = getToken()
       const config = {
@@ -37,7 +37,7 @@ export const updateUserData = createAsyncThunk(
           'Authorization': `Bearer ${authToken}`,
         },
       };
-      const response = await api.put("/profile", userUpdateData, config);
+      const response = await api.put("/profile", {}, config);
       console.log({...response?.data.body, authToken});
       return {...response?.data.body, authToken};
     } catch (error) {
@@ -61,4 +61,6 @@ export const login = createAsyncThunk("auth/login", async (payload) => {
 
 
 
-
+export const signOut = createAsyncThunk("auth/signOut", async () => {
+  removeToken();
+});
