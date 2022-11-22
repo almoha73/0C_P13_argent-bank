@@ -2,14 +2,16 @@ import React from "react";
 import logo from "../assets/argentBankLogo.png";
 import { FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signOut } from "../redux/features/auth/authThunks";
 
 const Header = () => {
 	const dispatch = useDispatch();
 	const { token, firstName } = useSelector((state) => state?.auth);
 	const logout = () => {
-		dispatch(signOut());
+		
+		dispatch(signOut())
 	};
 	return (
 		<div className="w-full h-16 border-b-2 bg-white flex items-center justify-center md:justify-between md:px-10 z-10 absolute">
