@@ -6,49 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 import { fetchUserData } from "../redux/features/auth/authThunks";
 import { useDispatch, useSelector } from "react-redux";
 import UpdateField from "../components/UpdateField";
+import { argentBank } from "../utils/accountsdatas";
 
-const argentBank = [
-	{
-		id: "6362708457c28472fbcb0b94",
-		accounts: [
-			{
-				check: "Argent Bank Checking (x8349)",
-				credit: "$2,082.79",
-				balance: "Available Balance",
-			},
-			{
-				check: "Argent Bank Savings (x6712)",
-				credit: "$10,928.42",
-				balance: "Available Balance",
-			},
-			{
-				check: "Argent Bank Credit Card (x8349)",
-				credit: "$184.30",
-				balance: "Current Balance",
-			},
-		],
-	},
-	{
-		id: "6362708457c28472fbcb0b93",
-		accounts: [
-			{
-				check: "Argent Bank Checking (x7654)",
-				credit: "$3,082.79",
-				balance: "Available Balance",
-			},
-			{
-				check: "Argent Bank Savings (x6743)",
-				credit: "$15,928.42",
-				balance: "Available Balance",
-			},
-			{
-				check: "Argent Bank Credit Card (x7654)",
-				credit: "$394.50",
-				balance: "Current Balance",
-			},
-		],
-	},
-];
 
 export default function Profil() {
 	const authToken = useSelector((state) => state.auth.token);
@@ -114,18 +73,7 @@ export default function Profil() {
 							</div>
 						))
 					)}
-					{/* {argent[0]?.accounts.map((elt) => (
-						<div
-							key={uuidv4()}
-							className="bg-white p-6 mb-8 w-10/12 sm:w-9/12 flex flex-col  sm:flex-row sm:justify-between sm:items-center"
-						>
-							<Card
-								check={elt.check}
-								credit={elt.credit}
-								balance={elt.balance}
-							/>
-						</div>
-					))} */}
+					
 				</div>
 			</main>
 
