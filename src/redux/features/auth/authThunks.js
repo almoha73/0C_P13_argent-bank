@@ -4,7 +4,7 @@ import api from "../../../services/api";
 
 export const fetchUserData = createAsyncThunk(
   "auth/fetchUserData",
-  async (userUpdateData, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const authToken = getToken()
       const config = {
@@ -12,7 +12,7 @@ export const fetchUserData = createAsyncThunk(
           'Authorization': `Bearer ${authToken}`,
         },
       };
-      const response = await api.post("/profile", userUpdateData, config);
+      const response = await api.post("/profile", {}, config);
       console.log({...response?.data.body, authToken});
       return {...response?.data.body, authToken};
     } catch (error) {

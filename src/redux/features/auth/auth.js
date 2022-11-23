@@ -43,7 +43,7 @@ export const authSlice = createSlice({
 				state.token = action.payload?.authToken;
 				state.firstName = action.payload.firstName;
 				state.lastName = action.payload.lastName;
-        state.id = action.payload.id;
+				state.id = action.payload.id;
 				state.loading = false;
 				state.error = null;
 			})
@@ -60,6 +60,7 @@ export const authSlice = createSlice({
 				state.token = action.payload?.authToken;
 				state.firstName = action.payload.firstName;
 				state.lastName = action.payload.lastName;
+				state.id = action.payload.id;
 				state.loading = false;
 				state.error = null;
 			})
