@@ -1,9 +1,8 @@
 import React from "react";
-import  {FaUserCircle}  from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { setToken } from "../utils/Helperunctions";
 import { login } from "../redux/features/auth/authThunks";
-//import history from "../utils/history";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -12,7 +11,7 @@ import { useEffect } from "react";
 
 export default function Login() {
 	const { loading, token } = useSelector((state) => state.auth);
-	const auth = useSelector((state) => state.auth)
+	const auth = useSelector((state) => state.auth);
 	console.log(auth);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -92,6 +91,6 @@ export default function Login() {
 				</section>
 			</main>
 			<Footer />
-		</ div>
+		</div>
 	);
 }
