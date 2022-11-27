@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import UpdateField from "../components/UpdateField";
 import { argentBank } from "../utils/accountsdatas";
 
-
 export default function Profil() {
 	const authToken = useSelector((state) => state.auth.token);
 
@@ -56,10 +55,9 @@ export default function Profil() {
 					)}
 
 					{editUser ? <UpdateField save={edit} /> : ""}
-					
 				</div>
 				<div className="w-full flex flex-col justify-center items-center mt-4 ">
-					{argent && (
+					{argent &&
 						argent[0]?.accounts.map((elt) => (
 							<div
 								key={uuidv4()}
@@ -71,9 +69,7 @@ export default function Profil() {
 									balance={elt.balance}
 								/>
 							</div>
-						))
-					)}
-					
+						))}
 				</div>
 			</main>
 

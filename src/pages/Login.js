@@ -28,6 +28,7 @@ export default function Login() {
 			navigate("/profile");
 		}
 	}, [token, navigate]);
+
 	return (
 		<div className="flex flex-col">
 			<Header />
