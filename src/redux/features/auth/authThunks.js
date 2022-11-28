@@ -1,5 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getToken, setToken, removeToken } from "../../../utils/Helperunctions";
+import {
+	getToken,
+	setToken,
+	removeToken,
+} from "../../../utils/Helperfunctions";
 import api from "../../../services/api";
 
 export const fetchUserData = createAsyncThunk(

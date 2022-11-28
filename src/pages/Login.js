@@ -1,7 +1,7 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { setToken } from "../utils/Helperunctions";
+import { setToken } from "../utils/Helperfunctions";
 import { login } from "../redux/features/auth/authThunks";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
