@@ -1,6 +1,7 @@
 export const argentBank = [
 	{
 		id: "6362708457c28472fbcb0b94",
+		mail: "steve@rogers.com",
 		accounts: [
 			{
 				check: "Argent Bank Checking (x8349)",
@@ -21,6 +22,7 @@ export const argentBank = [
 	},
 	{
 		id: "6362708457c28472fbcb0b93",
+		mail: "tony@stark.com",
 		accounts: [
 			{
 				check: "Argent Bank Checking (x7654)",

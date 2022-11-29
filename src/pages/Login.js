@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+//import { getToken } from "../utils/Helperfunctions";
 
 export default function Login() {
 	const { loading, token } = useSelector((state) => state.auth);
@@ -22,6 +23,7 @@ export default function Login() {
 	} = useForm();
 
 	const onSubmit = (data) => dispatch(login(data));
+
 	useEffect(() => {
 		if (token) {
 			setToken(token);
