@@ -24,15 +24,13 @@ export const setToken = (val) => {
 	var encrypted = CryptoJS.AES.encrypt(val, "1973").toString();
 	console.log(encrypted);
 	console.log(encrypted.length);
-	//creation of the expiration time of the stored part in the cookies (30 minutes)
-	let date = new Date(Date.now() + 108000);
-	date = date.toUTCString();
+
 	//split encrypted token
 	const splitToken = splitChunks(encrypted);
 	console.log(splitChunks(encrypted));
 	//stoquage of the three parts
 	localStorage.setItem("token", splitToken[0]);
-	document.cookie = `token=${splitToken[1]}; path=/; expires=" + ${date}"`;
+	document.cookie = `token=${splitToken[1]}; max-age=10000; path=/`;
 	localStorage.setItem("token2", splitToken[2]);
 	return encrypted;
 };
