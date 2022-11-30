@@ -9,6 +9,7 @@ const initialState = {
 	lastName: "",
 	error: null,
 	id: "",
+	email: "",
 };
 
 export const authSlice = createSlice({
@@ -46,6 +47,7 @@ export const authSlice = createSlice({
 				state.id = action.payload?.id;
 				state.loading = false;
 				state.error = null;
+				state.email = action.payload?.email;
 			})
 			.addCase(fetchUserData?.rejected, (state, action) => {
 				state.loading = false;

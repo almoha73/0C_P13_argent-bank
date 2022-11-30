@@ -7,11 +7,9 @@ import { fetchUserData } from "../redux/features/auth/authThunks";
 import { useDispatch, useSelector } from "react-redux";
 import UpdateField from "../components/UpdateField";
 import { argentBank } from "../utils/accountsdatas";
-//import { Navigate } from "react-router";
-// import { getToken, setToken } from "../utils/Helperfunctions";
-// import { Navigate } from "react-router";
 //import { useNavigate } from "react-router";
-//import { getToken } from "../utils/Helperfunctions";
+import history from "../utils/history";
+//import { Navigate } from "react-router";
 
 export default function Profil() {
 	const firstName = useSelector((state) => state.auth?.firstName);
@@ -21,7 +19,7 @@ export default function Profil() {
 	const authToken = useSelector((state) => state.auth.token);
 	const dispatch = useDispatch();
 
-	console.log(id, firstName, lastName, authToken);
+	console.log(mail, id, firstName, lastName, authToken);
 
 	let argent;
 	if (authToken) {
@@ -35,25 +33,11 @@ export default function Profil() {
 	//const navigate = useNavigate();
 
 	useEffect(() => {
-		dispatch(fetchUserData());
-		const stateObj = { id, firstName, lastName, authToken };
-		function saveToLocalStorage() {
-			if (stateObj) {
-				try {
-					const serializedState = JSON.stringify({
-						firstName,
-						lastName,
-						id,
-						mail,
-					});
-					localStorage.setItem("state", serializedState);
-				} catch (e) {
-					console.log(e);
-				}
-			} else return;
+		if (authToken) {
+			history.push("/profile");
 		}
-		saveToLocalStorage();
-	}, [dispatch, firstName, lastName, id, mail, authToken]);
+		dispatch(fetchUserData());
+	}, [dispatch, authToken]);
 
 	const [editUser, setEditUser] = useState(false);
 

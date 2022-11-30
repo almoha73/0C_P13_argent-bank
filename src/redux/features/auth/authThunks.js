@@ -5,12 +5,14 @@ import {
 	removeToken,
 } from "../../../utils/Helperfunctions";
 import api from "../../../services/api";
+import history from "../../../utils/history";
 
 export const fetchUserData = createAsyncThunk(
 	"auth/fetchUserData",
 	async (_, { rejectWithValue }) => {
 		try {
 			const authToken = getToken();
+
 			const config = {
 				headers: {
 					Authorization: `Bearer ${authToken}`,
@@ -60,7 +62,7 @@ export const login = createAsyncThunk("auth/login", async (payload) => {
 	const response = await api.post("/login", payload);
 	console.log(response.data.body.token);
 	setToken(response.data.body?.token);
-
+	history.push("/profile");
 	return response.data?.body;
 });
 
