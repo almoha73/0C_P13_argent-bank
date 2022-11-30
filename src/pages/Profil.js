@@ -65,6 +65,7 @@ export default function Profil() {
 
 					{editUser ? (
 						<button
+							autoFocus={true}
 							onClick={edit}
 							className="bg-[#00BC77] p-2 w-20	text-white text-xs mt-4 "
 						>
