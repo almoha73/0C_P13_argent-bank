@@ -48,10 +48,10 @@ export default function Profil() {
 	}
 
 	return (
-		<div className="flex flex-col w-full h-auto bg-[#12002B]">
+		<div className="flex flex-col w-full h-screen bg-[#12002B]">
 			<Header />
 
-			<main className="mt-24 mb-12 w-full h-auto  flex justify-start items-center flex-col">
+			<main className="mt-24 w-full h-scrren flex-1 flex justify-start items-center flex-col">
 				<div className="flex flex-col items-center mb-4">
 					{token !== null ? (
 						<h1 className="text-3xl text-center text-white font-bold">

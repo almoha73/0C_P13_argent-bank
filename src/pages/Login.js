@@ -32,9 +32,9 @@ export default function Login() {
 	}, [token, navigate]);
 
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col bg-[#12002B] w-full h-screen">
 			<Header />
-			<main className="mt-16 bg-[#12002B] w-full h-screen flex justify-center">
+			<main className="mt-16 flex-1  flex justify-center">
 				<section className="mt-28 m-12 p-8 w-[300px] h-[360px] bg-white  flex flex-col justify-center">
 					<FaUserCircle className="w-5 h-5 mx-auto" />
 					<h1 className="text-center my-5">Sign In</h1>
