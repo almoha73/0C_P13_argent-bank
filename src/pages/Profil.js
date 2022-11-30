@@ -2,42 +2,40 @@ import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Card from "../components/Card";
+import Loading from "./Loading";
 import { v4 as uuidv4 } from "uuid";
 import { fetchUserData } from "../redux/features/auth/authThunks";
 import { useDispatch, useSelector } from "react-redux";
 import UpdateField from "../components/UpdateField";
 import { argentBank } from "../utils/accountsdatas";
-//import { useNavigate } from "react-router";
-import history from "../utils/history";
-//import { Navigate } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function Profil() {
-	const firstName = useSelector((state) => state.auth?.firstName);
-	const lastName = useSelector((state) => state.auth?.lastName);
-	const mail = useSelector((state) => state.auth?.email);
-	const id = useSelector((state) => state.auth?.id);
-	const authToken = useSelector((state) => state.auth.token);
+	const { firstName, lastName, email, id, token, loading } = useSelector(
+		(state) => state.auth
+	);
 	const dispatch = useDispatch();
 
-	console.log(mail, id, firstName, lastName, authToken);
+	console.log(email, id, firstName, lastName, token, loading);
 
 	let argent;
-	if (authToken) {
-		argent = argentBank.filter((elt) => elt.id === id || elt.mail === mail);
+	if (token) {
+		argent = argentBank.filter((elt) => elt.id === id || elt.mail === email);
 	} else {
 		argent = argentBank;
 	}
 
 	console.log(argent[0]);
 
-	//const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (authToken) {
-			history.push("/profile");
+		if (token) {
+			navigate("/profile");
+			//history.push("/profile");
 		}
 		dispatch(fetchUserData());
-	}, [dispatch, authToken]);
+	}, [dispatch, token, navigate]);
 
 	const [editUser, setEditUser] = useState(false);
 
@@ -45,13 +43,17 @@ export default function Profil() {
 		setEditUser(!editUser);
 	};
 
+	if (loading) {
+		return <Loading />;
+	}
+
 	return (
 		<div className="flex flex-col w-full h-auto bg-[#12002B]">
 			<Header />
 
 			<main className="mt-24 mb-12 w-full h-auto  flex justify-start items-center flex-col">
 				<div className="flex flex-col items-center mb-4">
-					{authToken !== null ? (
+					{token !== null ? (
 						<h1 className="text-3xl text-center text-white font-bold">
 							Welcome back <br></br> {firstName} {lastName}
 						</h1>
