@@ -11,7 +11,7 @@ export const fetchUserData = createAsyncThunk(
 	"auth/fetchUserData",
 	async (_, { rejectWithValue }) => {
 		try {
-			const authToken = fetchToken();
+			const authToken = fetchToken() ? fetchToken() : getToken();
 
 			const config = {
 				headers: {
@@ -37,7 +37,7 @@ export const updateUserData = createAsyncThunk(
 	"auth/updateUserData",
 	async (updateUserData, { rejectWithValue }) => {
 		try {
-			const authToken = getToken();
+			const authToken = fetchToken() ? fetchToken() : getToken();
 			const config = {
 				headers: {
 					Authorization: `Bearer ${authToken}`,

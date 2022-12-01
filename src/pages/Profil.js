@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UpdateField from "../components/UpdateField";
 import { argentBank } from "../utils/accountsdatas";
 import { useNavigate } from "react-router";
+import { fetchToken } from "../redux/features/auth/auth";
 
 export default function Profil() {
 	const { firstName, lastName, email, id, token, loading } = useSelector(
