@@ -5,13 +5,14 @@ import {
 	removeToken,
 } from "../../../utils/Helperfunctions";
 import api from "../../../services/api";
+import { fetchToken } from "./auth";
 //import history from "../../../utils/history";
 
 export const fetchUserData = createAsyncThunk(
 	"auth/fetchUserData",
 	async (_, { rejectWithValue }) => {
 		try {
-			const authToken = getToken();
+			const authToken = fetchToken();
 
 			const config = {
 				headers: {

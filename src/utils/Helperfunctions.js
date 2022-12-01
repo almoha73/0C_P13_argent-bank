@@ -61,8 +61,15 @@ export function setCookie(val) {
 
 export function getCookie(val) {
 	const cookie = recupererCookie(val);
-	const bytes = CryptoJS.AES.decrypt(cookie, "1973");
-	var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
-	console.log(decryptedData);
-	return decryptedData;
+	if (cookie !== null) {
+		const bytes = CryptoJS.AES.decrypt(cookie, "1973");
+		var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+		console.log(decryptedData);
+		return decryptedData;
+	} else {
+		return null;
+	}
+}
+export function eraseCookie(name) {
+	document.cookie = name + "=; Max-Age=-99999999;";
 }
