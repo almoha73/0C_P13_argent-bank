@@ -11,18 +11,20 @@ console.log(cookie);
 
 let token;
 export const fetchToken = () => {
-	if (getToken() !== "") {
+	if (getToken() !== null) {
 		token = getToken();
-	} else if (getCookie("remember")) {
+	} else if (cookie) {
 		token = getCookie("remember");
+	} else if (!cookie) {
+		return;
 	} else {
-		token = "";
+		token = null;
 	}
 	return token;
 };
 
 const initialState = {
-	token: fetchToken(),
+	token,
 	loading: false,
 	firstName: "",
 	lastName: "",
