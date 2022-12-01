@@ -52,3 +52,17 @@ function recupererCookie(nom) {
 	}
 	return null;
 }
+
+export function setCookie(val) {
+	var encrypted = CryptoJS.AES.encrypt(val, "1973").toString();
+	console.log(encrypted);
+	document.cookie = `remember=${encrypted}; max-age=84000; path=/`;
+}
+
+export function getCookie(val) {
+	const cookie = recupererCookie(val);
+	const bytes = CryptoJS.AES.decrypt(cookie, "1973");
+	var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+	console.log(decryptedData);
+	return decryptedData;
+}

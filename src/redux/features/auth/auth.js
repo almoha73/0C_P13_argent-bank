@@ -1,21 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import { getCookie, getToken } from "../../../utils/Helperfunctions";
 import { fetchUserData, login, updateUserData, signOut } from "./authThunks";
 
+let token;
+if (getCookie("remember") || getToken("token")) {
+	token = getCookie("remember") || getToken("token");
+} else {
+	token = null;
+}
+
 const initialState = {
-	token: null,
+	token,
 	loading: false,
 	firstName: "",
 	lastName: "",
 	error: null,
 	id: "",
 	email: "",
+	remember: false,
 };
 
 export const authSlice = createSlice({
 	name: "auth",
 	initialState,
-	reducers: {},
+	reducers: {
+		rememberMe: (state, action) => {
+			state.remember = action.payload;
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(signOut.fulfilled, (state, action) => {
@@ -24,6 +36,7 @@ export const authSlice = createSlice({
 				state.lastName = "";
 				state.token = null;
 				state.error = null;
+				state.remember = false;
 			})
 			.addCase(login.pending, (state, action) => {
 				state.loading = true;
@@ -74,6 +87,6 @@ export const authSlice = createSlice({
 	},
 });
 
-export const { actions } = authSlice;
+export const { rememberMe } = authSlice.actions;
 
 export default authSlice.reducer;

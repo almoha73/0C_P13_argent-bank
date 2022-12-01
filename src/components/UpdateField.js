@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-// import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateUserData } from "../redux/features/auth/authThunks";
 

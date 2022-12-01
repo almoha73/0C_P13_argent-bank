@@ -62,6 +62,7 @@ export const login = createAsyncThunk("auth/login", async (payload) => {
 	const response = await api.post("/login", payload);
 	console.log(response.data.body.token);
 	setToken(response.data.body?.token);
+	//setCookie(response.data.body?.token);
 	//history.push("/profile");
 	return response.data?.body;
 });

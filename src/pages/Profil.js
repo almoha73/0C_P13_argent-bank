@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UpdateField from "../components/UpdateField";
 import { argentBank } from "../utils/accountsdatas";
 import { useNavigate } from "react-router";
+import { getCookie } from "../utils/Helperfunctions";
 
 export default function Profil() {
 	const { firstName, lastName, email, id, token, loading } = useSelector(
@@ -32,10 +33,13 @@ export default function Profil() {
 	useEffect(() => {
 		if (token) {
 			navigate("/profile");
-			//history.push("/profile");
+		} else {
+			if (getCookie("remember") === token) {
+				navigate("/profile");
+			}
 		}
 		dispatch(fetchUserData());
-	}, [dispatch, token, navigate]);
+	}, [dispatch, token, navigate, email]);
 
 	const [editUser, setEditUser] = useState(false);
 
@@ -65,7 +69,6 @@ export default function Profil() {
 
 					{editUser ? (
 						<button
-							autoFocus={true}
 							onClick={edit}
 							className="bg-[#00BC77] p-2 w-20	text-white text-xs mt-4 "
 						>

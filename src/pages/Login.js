@@ -1,19 +1,22 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { setToken } from "../utils/Helperfunctions";
+import { setCookie } from "../utils/Helperfunctions";
 import { login } from "../redux/features/auth/authThunks";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { rememberMe } from "../redux/features/auth/auth";
 //import { getToken } from "../utils/Helperfunctions";
 
 export default function Login() {
-	const { loading, token } = useSelector((state) => state.auth);
+	const { loading, token, remember, email } = useSelector(
+		(state) => state.auth
+	);
 	const auth = useSelector((state) => state.auth);
-	console.log(auth);
+	console.log(auth, loading, token, remember, email);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const {
@@ -22,14 +25,19 @@ export default function Login() {
 		handleSubmit,
 	} = useForm();
 
-	const onSubmit = (data) => dispatch(login(data));
-
 	useEffect(() => {
 		if (token) {
-			setToken(token);
 			navigate("/profile");
 		}
-	}, [token, navigate]);
+	}, [token, navigate, remember]);
+
+	const checkRemember = (e) => {
+		dispatch(rememberMe(e.target.checked));
+	};
+	const onSubmit = (data) => dispatch(login(data));
+	if (remember === true) {
+		setCookie(token);
+	}
 
 	return (
 		<div className="flex flex-col bg-[#12002B] w-full h-screen">
@@ -78,7 +86,12 @@ export default function Login() {
 							</p>
 						</div>
 						<div className="input-wrapper mb-4">
-							<input type="checkbox" id="remember-me" className="mr-2" />
+							<input
+								onChange={checkRemember}
+								type="checkbox"
+								id="remember-me"
+								className="mr-2"
+							/>
 							<label htmlFor="remember-me">Remember me</label>
 						</div>
 						{loading ? (
