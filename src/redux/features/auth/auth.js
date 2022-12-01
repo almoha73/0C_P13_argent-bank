@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
 	eraseCookie,
-	getCookie,
-	getToken,
+	getCookie
+	
 } from "../../../utils/Helperfunctions";
 import { fetchUserData, login, updateUserData, signOut } from "./authThunks";
 
@@ -49,6 +49,7 @@ export const authSlice = createSlice({
 				state.token = null;
 				state.error = null;
 				state.remember = false;
+				state.email = "";
 				eraseCookie("remember");
 			})
 			.addCase(login.pending, (state, action) => {

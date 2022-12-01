@@ -38,8 +38,7 @@ export default function Login() {
 	if (remember === true) {
 		setCookie(token);
 	}
-	// const data = getCookie("remember");
-	// console.log(data);
+	
 	return (
 		<div className="flex flex-col bg-[#12002B] w-full h-screen">
 			<Header />
