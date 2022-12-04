@@ -57,12 +57,6 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-    get:
-      description: ''
-      parameters: []
-      responses:
-        '200':
-          description: OK
   /user/profile:
     post:
       security:
@@ -119,20 +113,26 @@ paths:
         '500':
    
           description: Internal Server Error
-  /user/accounts:
+  /user/profile/accounts:
     post:
       security:
         - Bearer: []
       tags:
-        - User Module
+        - Account Module
       summary: User Account API
-      description: API for fetching a user accounts
+      description: API for fetching user accounts
       parameters:
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
           required: true
           type: string
+        - in: body
+          name: body
+          description: Selected User Payload
+          required: true
+          schema:
+            $ref: '#/definitions/UserID'
       produces:
         - application/json
       responses:
@@ -144,12 +144,72 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/transaction:
+  /user/profile/selectedAccount/:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Account Module
+      summary: User Account API 
+      description: API for fetching an account by id
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Selected account Payload
+          required: true
+          schema:
+            $ref: '#/definitions/AccountID'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: User account by id retrieved successully
+          schema:
+            $ref: '#/definitions/accountByID'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/profile/transactions:
     post:
       security:
           - Bearer: []
       tags:
-        - User Module
+        - Transaction Module
+      description: 'Api for fetching the current month transactions'
+      
+      parameters:
+        - in: header
+          type: string
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+        - in: body
+          name: body
+          description: Month Transactions Payload
+          required: true
+          schema:
+            $ref: '#/definitions/MonthTransactions'
+      responses:
+        '200':
+          description: transaction retrieve successfully
+          schema:
+            $ref: '#/definitions/MonthResponseTransactions'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error  
+  /user/profile/singleTransaction:
+    post:
+      security:
+          - Bearer: []
+      tags:
+        - Transaction Module
       description: 'Api for fetching a transaction'
       
       parameters:
@@ -158,6 +218,12 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
+        - in: body
+          name: body
+          description: Selected One transaction Payload
+          required: true
+          schema:
+            $ref: '#/definitions/transactionId'
       responses:
         '200':
           description: transaction retrieve successfully
@@ -166,18 +232,128 @@ paths:
         '400':
           description: Invalid Fields
         '500':
-          description: Internal Server Error
-
-
-
-
-
-    
+          description: Internal Server Error  
+  /user/profile/updateTransaction:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Add a new transaction
+      description: Add a new transaction with provided informations
+      operationId: addTransaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Transaction Informations Payload
+          required: true
+          schema:
+            $ref: '#/definitions/ResponseTransactions'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction added successully
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example: Success
+        '404':
+          description: Id not found
+        '500':
+          description: Error on the server  
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Update transaction
+      description: Update a transaction with provided informations
+      operationId: updateTransaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Transaction Informations Payload
+          required: true
+          schema:
+            $ref: '#/definitions/ResponseTransactions'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updated successully
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example: Success
+        '404':
+          description: Id not found
+        '500':
+          description: Error on the server
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Delete transaction
+      description: Delete a transaction with provided informations
+      operationId: deleteTransaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Selected Transaction Payload
+          required: true
+          schema:
+            $ref: '#/definitions/transactionId'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction deleted successully
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example: Success
+        '404':
+          description: Transaction not found
+        '500':
+          description: Error on the server - Your request could not be completed 
 securityDefinitions:
   Bearer:
     type: apiKey
     name: Authorization
     in: header
+
 definitions:
   User:
     properties:
@@ -193,6 +369,11 @@ definitions:
       lastName:
         type: string
         description: user last name
+  UserID:
+    properties:
+      id:
+        type: number
+        description: User id
   Login:
     properties:
       email:
@@ -230,40 +411,151 @@ definitions:
   accounts:
     type: object
     properties:
-      accounts:
+      status:
+        type: integer
+      message:  
+        type: string
+      body:
         type: array
         items:
           type: object
-          properties:
-            id:
-              type: number
-            title:
+          properties: 
+            id: 
+              type: "string"
+            accountId:
+              type: "string"
+            name:
               type: string
             balance:
               type: string
-            description:
-              type: string
-  ApiResponseTransactions:
+  AccountID:
+    properties:
+      id:
+        type: number
+        description: Account id
+  accountByID:
     type: object
     properties:
-      transactions:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id: 
+            type: string 
+          accountId:
+            type: string
+          name:
+            type: string
+          balance:
+            type: number
+          description:
+            type: string 
+  transactionId:
+    properties:
+      id:
+        type: number
+        description: Transaction id
+  ApiResponseTransactions:
+    type: object
+    properties: 
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties: 
+          id: 
+            type: string
+          transactionId:
+            type: string
+          date: 
+            type: string
+          description:
+            type: string
+          type:
+            type: string
+          balance:
+            type: number
+          category:
+            type: string
+          amount:
+            type: number
+          comments:
+            type: string
+  MonthTransactions:
+    type: object
+    properties: 
+      accounId:
+        type: string
+  MonthResponseTransactions:
+    type: object
+    properties: 
+      status: 
+        type: integer
+      message: 
+        type: string
+      body:
         type: array
-        items:
+        items: 
           type: object
-          properties:
-            id:
-              type: number
+          properties: 
+            accountId:
+              type: string
             date:
               type: string
-            description:
+            description:  
               type: string
+            type:
+              type: string
+              example: Electronic
+            category:
+              type: string
+              example: food
             amount:
               type: number
             balance:
               type: number
-            type:
+            createdAt:
               type: string
-            category:
+            updtatedAt:
               type: string
-            note:
+            notes:
               type: string
+  ResponseTransactions:         
+    type: object
+    properties:
+        id:
+          type: string
+          description: Transaction ID
+        accountId:
+          type: number
+          description: Account ID
+        description:
+          type: string
+          example: Napoleon     
+        amount:
+          type: number
+          example: 12.5
+        currency:
+          type: string
+          example: $      
+        type:
+          type: string
+          example: Electronic     
+        category:
+          type: string
+          example: Food    
+        note:
+          type: string  
+        createdAt:
+          type: string
+          example: 2022-12-4T10:21:54Z    
+        updatedAt:
+          type: string
+          example: 2022-12-04T10:21:54Z
+          
+          
