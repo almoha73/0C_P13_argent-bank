@@ -5,11 +5,11 @@
 ## The project
 The project is for a new start-up bank, Argent Bank, which is trying to break into the industry and needs help setting up its application. We were awarded a two-part contract that breaks down into several phases:
 
-Phase 1: User Authentication - Creating a web application for customers to log in and manage their accounts and profiles.\
+Phase 1: User Authentication - Creating a web application for customers to log in and manage their accounts and profiles.
 
-Phase 2: Transactions - This would involve specifying the API endpoints needed for a possible second mission once we complete the first.\
+Phase 2: Transactions - This would involve specifying the API endpoints needed for a possible second mission once we complete the first.
 
-You can find the swagger documentation [here](https://app.swaggerhub.com/apis/almoha73/bank-argent_api_documentation/1.0.0) or directly the file swagger.yaml which is in the public folder and which you can open with the vscode OpenApi extension.\
+You can find the swagger documentation [HERE](https://app.swaggerhub.com/apis/almoha73/bank-argent_api_documentation/1.0.0) or directly the file swagger.yaml which is in the public folder and which you can open with the vscode OpenApi extension.
 
 
 ## Getting Started with Create React App

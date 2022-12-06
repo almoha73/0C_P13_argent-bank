@@ -139,7 +139,7 @@ paths:
           description: Account not found
         '500':
           description: Internal Server Error
-  /user/profile/selectedAccount/:
+  /user/profile/selectedAccount/:accountId:
     get:
       security:
         - Bearer: []
@@ -168,7 +168,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  /user/profile/transactions:
+  /user/profile/transactions/:currentMonth:
     get:
       security:
           - Bearer: []
@@ -182,7 +182,10 @@ paths:
           name: Authorization
           description: Attach Bearer JWT token
           required: true
-        
+        - in: path
+          name: currentMonth
+          type: string
+          required: true
       responses:
         '200':
           description: transaction retrieve successfully
@@ -192,7 +195,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error  
-  /user/profile/selectedTransaction:
+  /user/profile/selectedTransaction/:transactionId:
     get:
       security:
           - Bearer: []
@@ -205,6 +208,10 @@ paths:
           type: string
           name: Authorization
           description: Attach Bearer JWT token
+          required: true
+        - in: path
+          name: transactionId
+          type: string
           required: true
       responses:
         '200':
@@ -269,7 +276,7 @@ paths:
           type: string
         - in: path
           name: transactionId
-          type: number
+          type: string
           required: true
         - in: body
           name: body
@@ -474,6 +481,8 @@ definitions:
         type: string
       accountId:
         type: string
+      currentMonth: 
+        type: string
       transactions:
         type: array
         items: 
@@ -524,6 +533,8 @@ definitions:
       createdAt:
         type: string
       updatedAt:
+        type: string
+      transactionId:
         type: string
       category:
         type: string
