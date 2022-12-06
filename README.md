@@ -1,18 +1,29 @@
 <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />  <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white" /> <img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" /> <img src="https://img.shields.io/badge/Toolkit-A06CD5?style=for-the-badge&logo=redux&logoColor=white " /> <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" /> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white" /> <img src="https://img.shields.io/badge/VSCode-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white" /> <img src="https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E" /> 
-
+<br><br>
 # ArgentBank project
 
-## The project
+
 The project is for a new start-up bank, Argent Bank, which is trying to break into the industry and needs help setting up its application. We were awarded a two-part contract that breaks down into several phases:
 
-Phase 1: User Authentication - Creating a web application for customers to log in and manage their accounts and profiles.
+# 1. User Authentication
+Creating a web application for customers to log in and manage their accounts and profiles.
 
-Phase 2: Transactions - This would involve specifying the API endpoints needed for a possible second mission once we complete the first.
+<br>
 
-You can find the swagger documentation [HERE](https://app.swaggerhub.com/apis/almoha73/bank-argent_api_documentation/1.0.0) or directly the file swagger.yaml which is in the public folder and which you can open with the vscode OpenApi extension.
+# 2. Transactions 
+This would involve specifying the API endpoints needed for a possible second mission once we complete the first.
 
+You can find the <span style="color: #85EA2D"> SWAGGER</span> documentation [HERE](https://app.swaggerhub.com/apis/almoha73/bank-argent_api_documentation/1.0.0) or directly the file `swagger.yaml` which is in the public folder and which you can open with the vscode OpenApi extension.
 
-## Getting Started with Create React App
+<br>
+
+# 3.  <span style="color: ff595e"> Where can you find the backend repo of the project</span>
+
+The backend repository is [HERE](https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API)\
+You can run the backend with the `npm run dev:server` command
+<br><br>
+
+# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
