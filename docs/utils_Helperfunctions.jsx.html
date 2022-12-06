@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: utils/Helperfunctions.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: utils/Helperfunctions.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import CryptoJS from "crypto-js";
+
+/**
+ * 
+ * @returns {string} function that retrieves the 3 parts of the encrypted token, assembles them and decrypts
+ */
+
+
+
+export const getToken = () => {
+	const decryp1 = localStorage.getItem("token");
+	const decryp2 = localStorage.getItem("token2");
+	const decryp3 = recupererCookie("token");
+	const decryp = decryp1 + decryp3 + decryp2;
+	console.log(decryp1, decryp2, decryp3, decryp);
+	const bytes = CryptoJS.AES.decrypt(decryp, "1973");
+	var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+	console.log(decryptedData);
+	return decryptedData;
+};
+
+export const removeToken = () => {
+	localStorage.removeItem("token");
+	localStorage.removeItem("token2");
+};
+
+/**
+ * 
+ * @param {string} val 
+ * @returns {string} function that encrypts the token, cuts it 3 and distributes it in the localstorage and cookies
+ */
+
+
+export const setToken = (val) => {
+	//token encryption
+	var encrypted = CryptoJS.AES.encrypt(val, "1973").toString();
+	console.log(encrypted);
+	console.log(encrypted.length);
+
+	//split encrypted token
+	const splitToken = splitChunks(encrypted);
+	console.log(splitChunks(encrypted));
+	//stoquage of the three parts
+	localStorage.setItem("token", splitToken[0]);
+	document.cookie = `token=${splitToken[1]}; max-age=10000; path=/`;
+	localStorage.setItem("token2", splitToken[2]);
+	return encrypted;
+};
+
+/**
+ * 
+ * @param {string} string 
+ * @returns {string} function to cut in 3 a string
+ */
+
+function splitChunks(string) {
+	var regex = RegExp(".{1," + Math.ceil(string.length / 3) + "}", "g");
+	return string.match(regex);
+}
+
+/**
+ * 
+ * @param {string} nom 
+ * @returns {string|null} function that retrieves a cookie based on its name
+ */
+
+
+function recupererCookie(nom) {
+	nom = nom + "=";
+	var liste = document.cookie.split(";");
+	for (var i = 0; i &lt; liste.length; i++) {
+		var c = liste[i];
+		while (c.charAt(0) === " ") c = c.substring(1, c.length);
+		if (c.indexOf(nom) === 0) return c.substring(nom.length, c.length);
+	}
+	return null;
+}
+
+/**
+ * 
+ * @param {string} val 
+ * @returns {string} function that set an encryped Cookie
+ */
+
+export function setCookie(val) {
+	var encrypted = CryptoJS.AES.encrypt(val, "noel").toString();
+	console.log(encrypted);
+	return (document.cookie = `remember=${encrypted}; max-age=84000; path=/`);
+}
+
+/**
+ * 
+ * @param {string} val 
+ * @returns {string} function that retrieves a cookie, decrypts it and returns it
+ */
+
+export function getCookie(val) {
+	const cookie = recupererCookie(val);
+	if (cookie) {
+		const bytes = CryptoJS.AES.decrypt(cookie, "noel");
+		var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+		console.log(decryptedData);
+		return decryptedData;
+	} else {
+		return null;
+	}
+}
+
+/**
+ * 
+ * @param {string} name function that erase a cookie according to the name
+ * 
+ */
+
+export function eraseCookie(name) {
+	document.cookie = name + "=; Max-Age=-99999999;";
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Banner">Banner</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Features">Features</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Loading">Loading</a></li><li><a href="global.html#UpdateField">UpdateField</a></li><li><a href="global.html#argentBank">argentBank</a></li><li><a href="global.html#createSlicemanagesstatechanges">createSlice manages state changes</a></li><li><a href="global.html#eraseCookie">eraseCookie</a></li><li><a href="global.html#featuresData">featuresData</a></li><li><a href="global.html#fetchUserData">fetchUserData</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#recupererCookie">recupererCookie</a></li><li><a href="global.html#setCookie">setCookie</a></li><li><a href="global.html#setToken">setToken</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#splitChunks">splitChunks</a></li><li><a href="global.html#token">token</a></li><li><a href="global.html#updateUserData">updateUserData</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Tue Dec 06 2022 12:39:23 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

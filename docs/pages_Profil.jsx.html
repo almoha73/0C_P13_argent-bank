@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/Profil.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/Profil.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from "react";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import Card from "../components/Card";
+import Loading from "./Loading";
+import { v4 as uuidv4 } from "uuid";
+import { fetchUserData } from "../redux/features/auth/authThunks";
+import { useDispatch, useSelector } from "react-redux";
+import UpdateField from "../components/UpdateField";
+import { argentBank } from "../utils/accountsdatas";
+import { useNavigate } from "react-router";
+
+/**
+ * @component for showing the profile page
+ * returns (
+ * &lt;Profil />)
+ */
+export default function Profil() {
+	const { firstName, lastName, email, id, token, loading } = useSelector(
+		(state) => state.auth
+	);
+	const dispatch = useDispatch();
+
+	console.log(email, id, firstName, lastName, token, loading);
+
+	/**
+	 * @param {Array.&lt;Object>} argent if token the data is filtered to display only the data of the connected user.
+if no token then data are displayed but the disconnection is reported
+	 */
+	let argent;
+	if (token) {
+		argent = argentBank.filter((elt) => elt.id === id || elt.mail === email);
+	} else {
+		argent = argentBank;
+	}
+
+	console.log(argent[0]);
+
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (token) {
+			navigate("/profile");
+		}
+		dispatch(fetchUserData());
+	}, [dispatch, token, navigate]);
+
+	const [editUser, setEditUser] = useState(false);
+
+	const edit = () => {
+		setEditUser(!editUser);
+	};
+
+	if (loading) {
+		return &lt;Loading />;
+	}
+
+	return (
+		&lt;div className="flex flex-col w-full h-screen bg-[#12002B]">
+			&lt;Header />
+
+			&lt;main className="mt-24 w-full h-scrren flex-1 flex justify-start items-center flex-col">
+				&lt;div className="flex flex-col items-center mb-4">
+					{token !== null ? (
+						&lt;h1 className="text-3xl text-center text-white font-bold">
+							Welcome back &lt;br>&lt;/br> {firstName} {lastName}
+						&lt;/h1>
+					) : (
+						&lt;h1 className="text-3xl text-center text-white font-bold">
+							Welcome back &lt;br>&lt;/br> Vous avez été déconnecté
+						&lt;/h1>
+					)}
+
+					{editUser ? (
+						&lt;button
+							onClick={edit}
+							className="bg-[#00BC77] p-2 w-20	text-white text-xs mt-4 "
+						>
+							Close
+						&lt;/button>
+					) : (
+						&lt;button
+							onClick={edit}
+							className="bg-[#00BC77] p-2 w-20	text-white text-xs mt-4 "
+						>
+							Edit Name
+						&lt;/button>
+					)}
+
+					{editUser ? &lt;UpdateField save={edit} /> : ""}
+				&lt;/div>
+				&lt;div className="w-full flex flex-col justify-center items-center mt-4 ">
+					{argent[0]?.accounts.map((elt) => (
+						&lt;div
+							key={uuidv4()}
+							className="bg-white p-6 mb-8 w-10/12 sm:w-9/12 flex flex-col  sm:flex-row sm:justify-between sm:items-center"
+						>
+							&lt;Card
+								check={elt.check}
+								credit={elt.credit}
+								balance={elt.balance}
+							/>
+						&lt;/div>
+					))}
+				&lt;/div>
+			&lt;/main>
+
+			&lt;Footer />
+		&lt;/div>
+	);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Banner">Banner</a></li><li><a href="global.html#Card">Card</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Features">Features</a></li><li><a href="global.html#Footer">Footer</a></li><li><a href="global.html#Header">Header</a></li><li><a href="global.html#Loading">Loading</a></li><li><a href="global.html#UpdateField">UpdateField</a></li><li><a href="global.html#argentBank">argentBank</a></li><li><a href="global.html#createSlicemanagesstatechanges">createSlice manages state changes</a></li><li><a href="global.html#eraseCookie">eraseCookie</a></li><li><a href="global.html#featuresData">featuresData</a></li><li><a href="global.html#fetchUserData">fetchUserData</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#recupererCookie">recupererCookie</a></li><li><a href="global.html#setCookie">setCookie</a></li><li><a href="global.html#setToken">setToken</a></li><li><a href="global.html#signOut">signOut</a></li><li><a href="global.html#splitChunks">splitChunks</a></li><li><a href="global.html#token">token</a></li><li><a href="global.html#updateUserData">updateUserData</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Tue Dec 06 2022 12:39:23 GMT+0100 (heure normale d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
