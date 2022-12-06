@@ -1,6 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+/**
+ * @component Component for showing the error page
+ * return (
+ * <Error />
+ * )
+ */
+
 const Error = () => {
 	return (
 		<>

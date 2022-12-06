@@ -10,7 +10,11 @@ import UpdateField from "../components/UpdateField";
 import { argentBank } from "../utils/accountsdatas";
 import { useNavigate } from "react-router";
 
-
+/**
+ * @component for showing the profile page
+ * returns (
+ * <Profil />)
+ */
 export default function Profil() {
 	const { firstName, lastName, email, id, token, loading } = useSelector(
 		(state) => state.auth
@@ -19,6 +23,10 @@ export default function Profil() {
 
 	console.log(email, id, firstName, lastName, token, loading);
 
+	/**
+	 * @param {Array.<Object>} argent if token the data is filtered to display only the data of the connected user.
+if no token then data are displayed but the disconnection is reported
+	 */
 	let argent;
 	if (token) {
 		argent = argentBank.filter((elt) => elt.id === id || elt.mail === email);

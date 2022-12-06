@@ -3,6 +3,12 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { updateUserData } from "../redux/features/auth/authThunks";
 
+/**
+ * @component for showing the update components which is the form that opens when you click the edit button and allows you to change the first and last name
+ * returns (
+ * <UpdateField />)
+ */
+
 const UpdateField = ({ save }) => {
 	const firstName = useSelector((state) => state.auth.firstName);
 	const lastName = useSelector((state) => state.auth.lastName);

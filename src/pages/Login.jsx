@@ -9,14 +9,20 @@ import Footer from "../components/Footer";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { rememberMe } from "../redux/features/auth/auth";
-//import { getToken } from "../utils/Helperfunctions";
+
+
+/**
+ * @component for showing the login page
+ * returns (
+ * <Login />)
+ */
 
 export default function Login() {
-	const { loading, token, remember, email } = useSelector(
+	const { loading, token, remember} = useSelector(
 		(state) => state.auth
 	);
-	const auth = useSelector((state) => state.auth);
-	console.log(auth, loading, token, remember, email);
+	
+	
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const {

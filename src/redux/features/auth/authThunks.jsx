@@ -7,6 +7,12 @@ import {
 import api from "../../../services/api";
 import { fetchToken } from "./auth";
 
+
+/**
+ * @return {object} user data
+ */
+
+
 export const fetchUserData = createAsyncThunk(
 	"auth/fetchUserData",
 	async (_, { rejectWithValue }) => {
@@ -33,6 +39,11 @@ export const fetchUserData = createAsyncThunk(
 	}
 );
 
+/**
+ * @return {object} data that contains the dats that can be modified
+ * @param {object} updateUserData  {firstName:"", lastName:""}
+ */
+
 export const updateUserData = createAsyncThunk(
 	"auth/updateUserData",
 	async (updateUserData, { rejectWithValue }) => {
@@ -58,14 +69,25 @@ export const updateUserData = createAsyncThunk(
 	}
 );
 
+/**
+ * @returns {object} data {token:""}
+ * @param {{firstName: string, lastName: string}} payload 
+ */
+
 export const login = createAsyncThunk("auth/login", async (payload) => {
-	const response = await api.post("/login", payload);
-	console.log(response.data.body.token);
+	try{
+		const response = await api.post("/login", payload);
+	console.log(response.data.body);
 	setToken(response.data.body?.token);
-	//setCookie(response.data.body?.token);
-	//history.push("/profile");
 	return response.data?.body;
+	}catch (error){
+		console.log(error);
+	}
 });
+
+/**
+ * function that remove the token when sign out
+ */
 
 export const signOut = createAsyncThunk("auth/signOut", async () => {
 	removeToken();

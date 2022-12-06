@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * @param {Object[]} featuresData - the list of features to display
+ */
+
 const featuresData = [
 	{
 		label: "chat",
@@ -20,6 +24,12 @@ const featuresData = [
 		text: "We use top of the line encryption to make sure your data and money is always safe.",
 	},
 ];
+
+/**
+ * @component for showing the features
+ * returns (
+ * <Features />)
+ */
 
 const Features = () => {
 	return (

@@ -1,5 +1,11 @@
 import React from "react";
 
+/**
+ * @component for showing the loading page
+ * returns (
+ * <Loading />)
+ */
+
 const Loading = () => {
 	return (
 		<div className="w-full h-screen flex justify-center items-center bg-black">

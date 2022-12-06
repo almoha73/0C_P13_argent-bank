@@ -1,5 +1,11 @@
 import React from "react";
 
+/**
+ * @component for showing the banner
+ * returns (
+ * <Banner />)
+ */
+
 const Banner = () => {
 	return (
 		<div className="w-full h-[300px] sm-h-[300px] lg:h-[450px]  flex items-center justify-center  mb-10  	">

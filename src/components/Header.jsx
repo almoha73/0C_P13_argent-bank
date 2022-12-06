@@ -7,13 +7,19 @@ import { useDispatch } from "react-redux";
 import { signOut } from "../redux/features/auth/authThunks";
 import { eraseCookie } from "../utils/Helperfunctions";
 
+/**
+ * @component for showing the Header
+ * returns (
+ * <Header />)
+ */
+
 const Header = () => {
 	const dispatch = useDispatch();
 	const { token, firstName } = useSelector((state) => state?.auth);
 	const logout = () => {
 		dispatch(signOut());
 		eraseCookie("token");
-		eraseCookie("remember")
+		eraseCookie("remember");
 	};
 	return (
 		<div className="w-full h-16 border-b-2 bg-white flex items-center justify-center md:justify-between md:px-10 z-10 absolute">

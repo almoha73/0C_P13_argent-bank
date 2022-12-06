@@ -6,8 +6,13 @@ import {
 } from "../../../utils/Helperfunctions";
 import { fetchUserData, login, updateUserData, signOut } from "./authThunks";
 
+
 let cookie = getCookie("remember");
 console.log(cookie);
+
+/**
+ * @returns {string|null} initialization of the token
+ */
 
 let token;
 export const fetchToken = () => {
@@ -20,6 +25,9 @@ export const fetchToken = () => {
 	}
 	return token;
 };
+/**
+ * @type {object} state initialization
+ */
 
 const initialState = {
 	token,
@@ -31,6 +39,10 @@ const initialState = {
 	email: "",
 	remember: false,
 };
+
+/**
+ * @function createSlice manages state changes
+ */
 
 export const authSlice = createSlice({
 	name: "auth",

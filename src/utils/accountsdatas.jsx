@@ -1,3 +1,7 @@
+/**
+ * @param {Object[]} argentBank - a list of user profile account
+ */
+
 export const argentBank = [
 	{
 		id: "6362708457c28472fbcb0b94",

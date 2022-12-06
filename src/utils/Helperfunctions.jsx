@@ -1,6 +1,12 @@
 import CryptoJS from "crypto-js";
 
-//function that retrieves the 3 parts of the encrypted token, assembles them and decrypts
+/**
+ * 
+ * @returns {string} function that retrieves the 3 parts of the encrypted token, assembles them and decrypts
+ */
+
+
+
 export const getToken = () => {
 	const decryp1 = localStorage.getItem("token");
 	const decryp2 = localStorage.getItem("token2");
@@ -18,7 +24,13 @@ export const removeToken = () => {
 	localStorage.removeItem("token2");
 };
 
-// function that encrypts the token, cuts it 3 and distributes it in the localstorage and cookies
+/**
+ * 
+ * @param {string} val 
+ * @returns {string} function that encrypts the token, cuts it 3 and distributes it in the localstorage and cookies
+ */
+
+
 export const setToken = (val) => {
 	//token encryption
 	var encrypted = CryptoJS.AES.encrypt(val, "1973").toString();
@@ -35,13 +47,24 @@ export const setToken = (val) => {
 	return encrypted;
 };
 
-// function to cut in 3 a string
+/**
+ * 
+ * @param {string} string 
+ * @returns {string} function to cut in 3 a string
+ */
+
 function splitChunks(string) {
 	var regex = RegExp(".{1," + Math.ceil(string.length / 3) + "}", "g");
 	return string.match(regex);
 }
 
-// function that retrieves a cookie based on its name
+/**
+ * 
+ * @param {string} nom 
+ * @returns {string|null} function that retrieves a cookie based on its name
+ */
+
+
 function recupererCookie(nom) {
 	nom = nom + "=";
 	var liste = document.cookie.split(";");
@@ -53,11 +76,23 @@ function recupererCookie(nom) {
 	return null;
 }
 
+/**
+ * 
+ * @param {string} val 
+ * @returns {string} function that set an encryped Cookie
+ */
+
 export function setCookie(val) {
 	var encrypted = CryptoJS.AES.encrypt(val, "noel").toString();
 	console.log(encrypted);
 	return (document.cookie = `remember=${encrypted}; max-age=84000; path=/`);
 }
+
+/**
+ * 
+ * @param {string} val 
+ * @returns {string} function that retrieves a cookie, decrypts it and returns it
+ */
 
 export function getCookie(val) {
 	const cookie = recupererCookie(val);
@@ -70,6 +105,13 @@ export function getCookie(val) {
 		return null;
 	}
 }
+
+/**
+ * 
+ * @param {string} name function that erase a cookie according to the name
+ * 
+ */
+
 export function eraseCookie(name) {
 	document.cookie = name + "=; Max-Age=-99999999;";
 }
