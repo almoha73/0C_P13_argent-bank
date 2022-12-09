@@ -9,7 +9,7 @@ import { fetchToken } from "./auth";
 
 
 /**
- * @return {object} user data
+ * @return {object} user data body of the response {createdAt, updatedAt, firstName, lastName, email,id, and the token recovered with the login function}
  */
 
 
@@ -25,7 +25,7 @@ export const fetchUserData = createAsyncThunk(
 				},
 			};
 			const response = await api.post("/profile", {}, config);
-			console.log({ ...response?.data.body, authToken });
+			
 			return { ...response?.data.body, authToken };
 		} catch (error) {
 			const message =
@@ -40,7 +40,7 @@ export const fetchUserData = createAsyncThunk(
 );
 
 /**
- * @return {object} data that contains the dats that can be modified
+ * @return {object} data that contains the datas that can be modified
  * @param {object} updateUserData  {firstName:"", lastName:""}
  */
 
@@ -77,7 +77,6 @@ export const updateUserData = createAsyncThunk(
 export const login = createAsyncThunk("auth/login", async (payload) => {
 	try{
 		const response = await api.post("/login", payload);
-	console.log(response.data.body);
 	setToken(response.data.body?.token);
 	return response.data?.body;
 	}catch (error){

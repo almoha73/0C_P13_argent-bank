@@ -222,6 +222,7 @@ paths:
           description: Transaction not found
         '500':
           description: Internal Server Error  
+  /user/profile/selectedTransaction/:
     post:
       security:
         - Bearer: []

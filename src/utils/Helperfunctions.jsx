@@ -12,10 +12,9 @@ export const getToken = () => {
 	const decryp2 = localStorage.getItem("token2");
 	const decryp3 = recupererCookie("token");
 	const decryp = decryp1 + decryp3 + decryp2;
-	console.log(decryp1, decryp2, decryp3, decryp);
 	const bytes = CryptoJS.AES.decrypt(decryp, "1973");
 	var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
-	console.log(decryptedData);
+	
 	return decryptedData;
 };
 

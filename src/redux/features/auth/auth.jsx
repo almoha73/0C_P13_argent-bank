@@ -8,7 +8,7 @@ import { fetchUserData, login, updateUserData, signOut } from "./authThunks";
 
 
 let cookie = getCookie("remember");
-console.log(cookie);
+
 
 /**
  * @returns {string|null} initialization of the token

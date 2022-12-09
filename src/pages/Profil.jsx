@@ -21,7 +21,6 @@ export default function Profil() {
 	);
 	const dispatch = useDispatch();
 
-	console.log(email, id, firstName, lastName, token, loading);
 
 	/**
 	 * @param {Array.<Object>} argent if token the data is filtered to display only the data of the connected user.
@@ -33,8 +32,6 @@ if no token then data are displayed but the disconnection is reported
 	} else {
 		argent = argentBank;
 	}
-
-	console.log(argent[0]);
 
 	const navigate = useNavigate();
 
